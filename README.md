@@ -2,9 +2,9 @@
 
 The API was constructed using Flask, SQLAlchemy, GeoAlchemy2 running on a Postgres 11.5 database with PostGIS 2.5 enabled. The creation script for the database is provided. It already contains the relevant data from the given excel file.
 
-API Usage Examples:
+## API Usage Examples:
 
-## Return 10 largest power plants in the US
+### Return 10 largest power plants in the US
 
 ```
 $ curl -H "Content-Type: application/json" -X GET -d '{"entity_type":"plant", "limit":"10", "sort": {"field": "PLNGENAN", "order": "desc" }}' http://localhost:5000/api/v1/gis/
@@ -119,7 +119,7 @@ Response:
 }
 ```
 
-## Return all nuclear power plants in Texas
+### Return all nuclear power plants in Texas
 
 ```
 $ curl -H "Content-Type: application/json" -X GET -d '{"entity_type":"plant", "filter": {"PSTATABB": "TX", "PLFUELCT": "NUCLEAR"}, "sort": {"field": "PLNGENAN", "order": "desc" } }' http://localhost:5000/api/v1/gis/
@@ -154,7 +154,7 @@ Response:
 }
 ```
 
-## Return 5 largest power plants in Florida in descending order
+### Return 5 largest power plants in Florida in descending order
 
 ```
 $ curl -H "Content-Type: application/json" -X GET -d '{"entity_type":"plant", "limit":"5", "filter": {"PSTATABB": "FL"}, "sort": {"field": "PLNGENAN", "order": "desc" } }' http://localhost:5000/api/v1/gis/
@@ -219,7 +219,7 @@ Response:
 }
 ```
 
-## Return 3 largest nuclear power plants in the US
+### Return 3 largest nuclear power plants in the US
 
 ```
 $ curl -H "Content-Type: application/json" -X GET -d '{"entity_type":"plant", "limit":"3", "filter": {"PLFUELCT": "NUCLEAR"}, "sort": {"field": "PLNGENAN", "order": "desc" } }' http://localhost:5000/api/v1/gis/
@@ -264,7 +264,7 @@ Response:
 }
 ```
 
-## Return all solar power plants within 80 miles of San Francisco, California
+### Return all solar power plants within 80 miles of San Francisco, California
 
 ```
 $ curl -H "Content-Type: application/json" -X GET -d '{"entity_type":"plant", "filter": {"PLFUELCT": "SOLAR"}, "within_radius": { "point": { "latitude": "37.762460", "longitude": "-122.446957" }, "radius": "80" } }' http://localhost:5000/api/v1/gis/
@@ -351,7 +351,7 @@ Response:
 }
 ```
         
-## Return all plants in a polygon about 80 kms by 120 kms, encompassing Charleston and Huntington, WV
+### Return all plants in a polygon about 80 kms by 120 kms, encompassing Charleston and Huntington, WV
 
 ```
 $ curl -H "Content-Type: application/json" -X GET -d '{"entity_type":"plant","within_polygon":{"points":[{"latitude":  "38.779234","longitude": "-82.681891"},{"latitude":  "38.161377","longitude": "-82.599994"},{"latitude":  "38.204311", "longitude": "-81.334090"},{"latitude":  "38.767503","longitude": "-81.054471"}]}}' http://localhost:5000/api/v1/gis/
