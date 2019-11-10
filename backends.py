@@ -208,17 +208,6 @@ class MapQuery(object):
             for attribute, value in self._json_query['filter'].items():
                 query = query.filter(getattr(map_entity_model, attribute.lower()) == value)
 
-        if 'sort' in self._json_query:
-            order_value = self._json_query['sort']['order']
-            model_field = getattr(map_entity_model, self._json_query['sort']['field'].lower())
-            if order_value == 'desc':
-                query = query.order_by(model_field.desc())
-            elif order_value == 'asc':
-                query = query.order_by(model_field)
-
-        if 'limit' in self._json_query:
-            query = query.limit(int(self._json_query['limit']))
-
         if 'within_radius' in self._json_query:
             latitude = self._json_query['within_radius']['point']['latitude']
             longitude = self._json_query['within_radius']['point']['longitude']
@@ -244,8 +233,18 @@ class MapQuery(object):
                 func.ST_GeomFromEWKT('SRID=4269;POLYGON({0})'.format(points_str))
             ))
 
-        return query
+        if 'sort' in self._json_query:
+            order_value = self._json_query['sort']['order']
+            model_field = getattr(map_entity_model, self._json_query['sort']['field'].lower())
+            if order_value == 'desc':
+                query = query.order_by(model_field.desc())
+            elif order_value == 'asc':
+                query = query.order_by(model_field)
 
+        if 'limit' in self._json_query:
+            query = query.limit(int(self._json_query['limit']))
+
+        return query
 
     def _perform_validations(self):
         # Perform mandatory checks
