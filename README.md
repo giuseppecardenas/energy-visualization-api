@@ -1,5 +1,4 @@
-# Group 42 Technical Challenge
-
+# -----
 The API was constructed using Flask, SQLAlchemy, GeoAlchemy2 running on a Postgres 11.5 database with PostGIS 2.5 enabled. The creation script for the database is provided. It already contains the relevant data from the given excel file.
 
 ## API Usage Examples:
